@@ -1,27 +1,27 @@
 <script setup lang="ts">
 import AuthForm from '~/components/AuthForm.vue';
-import { toRaw } from 'vue';
-
-interface FormData {
-  email: string;
-  password: string;
-}
 
 definePageMeta({
   layout: 'auth'
 });
 
+interface FormData {
+  name?: string;
+  email: string;
+  password: string;
+}
+
 const { session, fetch: refreshSession } = useUserSession();
 const { setSession } = useSessionComposable();
 const loading = ref(false);
 
-const login = async (data: FormData) => {
+const signup = async (data: FormData) => {
   loading.value = true;
   try {
-    await $fetch('/api/auth/login', { method: 'POST', body: data });
+    await $fetch('/api/auth/signup', { method: 'POST', body: data });
     await refreshSession();
-    setSession(toRaw(session.value));
-    await navigateTo('/');
+    setSession(session);
+    navigateTo('/');
   } catch (error) {
     console.error(error);
   } finally {
@@ -32,11 +32,11 @@ const login = async (data: FormData) => {
 
 <template>
   <div class="p-6 bg-white rounded-lg flex flex-col gap-5">
-    <AuthForm :loading="loading" :isSignup="false" @submit="login" title="Log In" />
-    <p class="text-center">Don't have an account? <nuxt-link class="text-blue-500 hover:underline" :to="{ name: 'signup' }">Sign up</nuxt-link></p>
+    <AuthForm :loading="loading" :isSignup="true" @submit="signup" title="Sign Up" />
+    <p class="text-center">Already have an account? <nuxt-link class="text-blue-500 hover:underline" :to="{ name: 'login' }">Log in</nuxt-link></p>
   </div>
-</template> 
+</template>
 
 <style scoped>
 
-</style> 
+</style>

@@ -6,7 +6,7 @@ const { clearSession } = useSessionComposable();
 const logout = async() => {
   clearSession();
   await clear();
-  await navigateTo('/login');
+  navigateTo('/login');
 }
 
 </script>

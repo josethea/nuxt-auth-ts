@@ -1,25 +1,27 @@
 import registerUser from '~/server/api/utils/register';
 import { H3Event } from 'h3';
 
-interface GitHubUser {
+interface GoogleUser {
   name: string;
   email: string;
-  avatar_url: string;
+  picture: string;
 }
 
-export default defineOAuthGitHubEventHandler({
+export default defineOAuthGoogleEventHandler({
   config: {
-    emailRequired: true
+    authorizationParams: {
+      access_type: 'offline',
+    }
   },
-  async onSuccess(event: H3Event, { user }: { user: GitHubUser }) {
+  async onSuccess(event: H3Event, { user }: { user: GoogleUser }) {
     const userData = {
       name: user.name,
       email: user.email,
-      provider: 'github',
-      avatar: user.avatar_url
+      provider: 'google',
+      avatar: user.picture
     }
     await registerUser(event, userData);
-    return sendRedirect(event, '/github-success');     
+    return sendRedirect(event, '/google-success');     
   },
   onError(event: H3Event, error: Error) {
     console.error('error', error);

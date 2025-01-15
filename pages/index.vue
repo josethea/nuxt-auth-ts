@@ -1,6 +1,5 @@
 <script setup lang="ts">
-
-const { days, getDays } = useDaysComposable();
+const { days, getDays } = useDaysComposable()
 
 getDays();
 

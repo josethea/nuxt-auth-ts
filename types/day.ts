@@ -1,4 +1,4 @@
-export type Day ={
+export type Day = {
   id: number
   day: number
   userId: number

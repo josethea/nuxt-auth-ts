@@ -46,6 +46,9 @@ const handleSubmit = () => {
       <a href="/auth/github" class="bg-black text-white rounded-md p-2 hover:bg-neutral-800 uppercase text-center" type="button">
         {{ title }} with Github
       </a>
+      <a href="/auth/google" class="bg-white text-black border border-black rounded-md p-2 hover:bg-violet-100 uppercase text-center" type="button">
+        {{ title }} with Google
+      </a>
     </div>
   </form>
 </template>
